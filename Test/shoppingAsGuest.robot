@@ -2,6 +2,7 @@
 Library    SeleniumLibrary
 Resource   ..//Resources//shoppingCart_kw.resource
 Resource   ..//Resources//checkoutPage_kw.resource
+Resource   ..//Resources//common.resource
 
 *** Variables ***
 ${url}      https://opencart.abstracta.us/index.php?route=common/home
@@ -28,18 +29,6 @@ Shopping as guest
 
 #TODO 
 #REEMPLAZAR LOS SLEEP POR WAITS
-
-
-*** Keywords ***
-Store page is loaded
-    Open Browser    ${url}        Chrome
-    Maximize Browser Window
-    ${title}=        Get Title
-    Should Be Equal    ${title}    Your Store    
-    Sleep  2s
-
-
-
 
 
 

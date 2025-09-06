@@ -43,7 +43,7 @@ EL siguiente comando ejecutara el script con los requerimientos para los puntos 
 Si se desea ejecutar todos los scripts basta con ejecutar
 ```bash
    robot.exe -d Results .\Test\
-``
+```
 
 
 ## Documentation
@@ -55,4 +55,28 @@ Debido al flujo de la pagina, al realizar una compra y crear una cuenta nueva, e
 Para evitar esto dentro de los test existe la variable ${idVarPrincipal} la cual al poner un valor entero buscara ese valor dentro del campo "id" del excel y extraera desde ahi los valors para crear una nueva cuenta.
 
 Dicho lo anterior, el excel se puede modificar los datos o agregar.
+
+## Flujo
+'shoppingCreatingNewAccount'
+
+*Este test usando la barra buscadora encontrara los items para ser agregados al carro
+
+*Se revisara que los items cargados en el pre-carro sean los correctos para posteriormente pasar al checkout
+
+*En el checkout se seleccionara crear cuenta nueva
+
+*Se obtendran los datos desde archivo excel para la creacion de usuarios
+
+*Durante proceso de Shipping se revisara que sea el solicitado, en caso contrario fallara test
+
+*Al generar orden de compra se revisara que el resultado sea exitoso, en caso contrario fallara
+
+*Se revisara historial de la compra, ademas de revisar detalle de los productos sean los esperados
+
+
+
+
+## Optimizations
+
+Una mejora sustancial es realizar la espera de los elementos usando por ejemplo la keyword "Wait Until ", por esta vez solamente se uso la mala practica de poner Sleep  de 2 segundos.
 
