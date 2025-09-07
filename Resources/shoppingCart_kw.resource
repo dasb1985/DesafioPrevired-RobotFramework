@@ -17,9 +17,23 @@ Search product: ${name_product} for add to cart
     Should Contain  ${alert_text}    ${name_product}    ignore_case=True
 
 
+Search product: ${name_product} for comparision
+    Input Text    ${search_input}    ${name_product}
+    Click Button    ${search_btn}
+    Click Button    ${addToComparation_btn}
+    Capture Page Screenshot    screenshot-${name_product}-{index}.png
+    Sleep  2s
+    #Successufully alert is displayed
+    Wait Until Element Is Visible    ${alert_text_comparation}
+    ${alert_text}=   Get Text    ${alert_text_comparation}
+    Log    ${alert_text}
+    Should Contain  ${alert_text}    Success: You have added ${name_product}    ignore_case=True
+
+
+
 Validate Cart Contains Items
     [Arguments]    @{expected_products}
-    ${cart_text}=    Get Text    xpath=//div[@id="cart"]//ul
+    ${cart_text}=    Get Text    ${cart_information}
     FOR    ${product}    IN    @{expected_products}
         Should Contain    ${cart_text}    ${product}     ignore_case=True
         Log    ${cart_text}
@@ -41,28 +55,48 @@ Go to checkout page
     Should Be Equal    ${checkoutTitle_txt}    ${checkout_txt}
 
 
-Pick item ${name_product} and added ${X} times
+Pick item ${name_product} and added ${itemAmount} times
     Input Text    ${search_input}    ${name_product}
     Click Button    ${search_btn}
     Sleep  2s
     Scroll Element Into View        ${addToCart_btn}
-    Click Image        xpath=//*[@id="content"]/div[3]/div/div/div[1]/a/img
+    Click Image        ${hpLaptop_img}
 
     Sleep  2s
     Capture Page Screenshot    screenshot-${name_product}-{index}.png
     Check specification
     Pick Delivery Date
 
+    Input Text    ${quantity_input}    ${itemAmount}
+    Click Button    ${addToCartTwo_btn}
+
 
 Check specification
-    Click Element    xpath=//*[@id="content"]/div/div[1]/ul[2]/li[2]/a
-    ${specificationText}=    Get Text    xpath=//*[@id="tab-specification"]/table/tbody[1]
-    Should Contain    ${specificationText}    item=16GB
+    Click Element    ${specification_lnk}
+    ${specificationText}=    Get Text    ${specification_tbl}
+    Should Contain    ${specificationText}    item=${16GB_txt}
 
 Pick Delivery Date
-    ${varDate}=    Get Current Date
-    ${dateToDeliver}=    Add Time To Date    ${varDate}    1 day   date_format=YYYY-MM-DD
-    
-    Input Text    id=input-option225    ${dateToDeliver}
-    Input Text    id=input-quantity    2
-    Click Button    id=button-cart
+    ${varDate}=    Get Current Date    result_format=%Y-%m-%d
+    Log    ${varDate}
+    ${dateToDeliver}=    Add Time To Date    ${varDate}    1 day
+    Input Text    ${date_input}    ${dateToDeliver}
+
+Write a review
+    Click Element    ${review_lnk}
+    Input Text    ${reviewName_input}    ${reviewName_txt}
+    Input Text    ${reviewDescription}    ${loremIpsum_txt}
+    Select Radio Button    group_name=${ratingGropu_rbtn}    value=3
+    Capture Page Screenshot   selenium-review-{index}.png
+    Click Button        ${reviewContinue_btn}
+    Sleep   2s
+    Wait Until Element Is Visible    ${alert_review_success}
+    ${warningText}=    Get Text    ${alert_review_success}
+    Should Be Equal    ${warningText}        ${reviewSuccess_txt}
+    Capture Page Screenshot   selenium-review-{index}.png  
+
+
+Go to product comparition page
+    Click Element    ${comparision_lnk}
+    Scroll Element Into View    ${table_anchor_for_ScreenShoot}=
+    Capture Page Screenshot       selenium-comparition-table-{index}.png

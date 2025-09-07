@@ -8,8 +8,10 @@ Resource   ..//Resources//common.resource
 *** Test Cases ***
 Look for HP and write a review
     Store page is loaded
-    Pick item HP LP3065 and added 2 times
-    Write a review
+    Search product: Apple Cinema 30 for comparision
+    Search product: Samsung SyncMaster 941BW for comparision
+    Go to product comparition page
+
 
 
 

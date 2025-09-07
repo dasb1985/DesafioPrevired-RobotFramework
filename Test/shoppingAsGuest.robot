@@ -23,13 +23,4 @@ Shopping as guest
     Select payment method
     Check final amounts 
     Confirm order
-    Validate order has been placed
-
-
-
-#TODO 
-#REEMPLAZAR LOS SLEEP POR WAITS
-
-
-
-    
+    Validate order has been placed   
